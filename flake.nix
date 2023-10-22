@@ -14,11 +14,12 @@
         imports = [ flakeModules.default ];
         systems =
           [ "x86_64-linux" "aarch64-linux" "aarch64-darwin" "x86_64-darwin" ];
-        perSystem = { config, self', inputs', pkgs, system, ... }: { 
-            denvs.default = {
-                programs.hello.enable = true;
-            };
+        perSystem = { config, self', inputs', pkgs, system, ... }: {
+          denvs.default = { programs.hello.enable = true; };
         };
-        flake = { inherit flakeModules; };
+        flake = {
+          inherit flakeModules;
+          homeManagerModules.default = import ./hm-module.nix;
+        };
       });
 }

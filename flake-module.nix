@@ -15,7 +15,9 @@ in {
         default = { };
       };
       config = {
-        devShells = lib.mapAttrs (_name: denv: denv.denv.package) config.denvs;
+        devShells =
+          let mkShell = cfg: pkgs.mkShell { buildInputs = cfg.packages; };
+          in lib.mapAttrs (_name: denv: mkShell denv.denv) config.denvs;
       };
     });
   };
