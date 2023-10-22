@@ -1,3 +1,4 @@
+# FIXME: Not checked
 { lib, config, pkgs, ... }:
 let inherit (lib) mkOption types;
 in {
@@ -7,5 +8,5 @@ in {
     };
     default = { };
   };
-  config = { home.packages = config.denv.denv.packages; };
+  config = { environment.systemPackages = config.denv.denv.packages; };
 }
