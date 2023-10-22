@@ -1,7 +1,7 @@
 {
   description = "Configure environment using Nix";
 
-  inputs = { nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable"; };
+  inputs = { nixpkgs.url = "github:NixOS/nixpkgs/nixos-23.05"; };
 
   outputs = inputs@{ flake-parts, ... }:
     flake-parts.lib.mkFlake { inherit inputs; }
@@ -20,6 +20,14 @@
         flake = {
           inherit flakeModules;
           homeManagerModules.default = import ./hm-module.nix;
+
+          templates = rec {
+            default = basic;
+            basic = {
+              path = ./templates/basic;
+              description = "Empty flake using dev.nix";
+            };
+          };
         };
       });
 }
