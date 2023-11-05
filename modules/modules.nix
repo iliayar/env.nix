@@ -1,6 +1,6 @@
 { pkgs, lib }:
 let
-  modules = [ ./base.nix ./hello.nix ];
+  modules = [ ./default.nix ];
 
   pkgsModule = { config, ... }: {
     config = {

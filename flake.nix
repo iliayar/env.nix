@@ -27,6 +27,11 @@
               path = ./templates/basic;
               description = "Empty flake using dev.nix";
             };
+            full = {
+              path = ./templates/full;
+              description =
+                "Empty flake using dev.nix with all options commented";
+            };
           };
         };
       });

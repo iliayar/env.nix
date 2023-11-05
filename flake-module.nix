@@ -15,9 +15,22 @@ in {
         default = { };
       };
       config = {
-        devShells =
-          let mkShell = cfg: pkgs.mkShell { buildInputs = cfg.packages; };
-          in lib.mapAttrs (_name: denv: mkShell denv.denv) config.denvs;
+        devShells = let
+          mkShell = cfg:
+            let
+              exports = lib.foldlAttrs (acc: name: value: ''
+                ${acc}
+                export ${name}=${value}
+              '') "" cfg.env;
+            in pkgs.mkShell {
+              buildInputs = cfg.packages;
+              shellHook = ''
+                ${exports}
+                 
+                ${cfg.init}
+              '';
+            };
+        in lib.mapAttrs (_name: denv: mkShell denv.denv) config.denvs;
       };
     });
   };
