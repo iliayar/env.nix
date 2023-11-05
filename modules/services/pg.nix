@@ -51,16 +51,20 @@ in {
         DATABASE_URL = "postgresql://${db}?host=${PGHOST}";
       };
 
-      denv.init = ''
+      denv.init = let
+        autoStartStop = ''
+          start_pg
+
+          function end_pg() {
+            stop_pg
+          }
+
+          trap end_pg EXIT
+        '';
+      in ''
         init_pg
 
-        ${if cfg.autoStart then "start_pg" else ""}
-
-        function end_pg() {
-          stop_pg
-        }
-
-        trap end_pg EXIT
+        ${if cfg.autoStart then autoStartStop else ""}
       '';
     })
   ];
