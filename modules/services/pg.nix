@@ -15,18 +15,19 @@ in {
   };
   config = mkMerge [
     (mkIf cfg.enable {
-      denv.packages = with pkgs; [
-        postgresql_14
+      denv.packages = with pkgs; [ postgresql_14 ];
 
-        (writeScriptBin "start_pg" ''
+      denv.scripts = {
+        start_pg.text = ''
           pg_ctl start -l $LOG_PATH -o "-c listen_addresses= -c unix_socket_directories=$PGHOST"
           createdb 2>/dev/null|| echo "Database already exists"
-        '')
+        '';
 
-        (writeScriptBin "stop_pg" ''
+        stop_pg.text = ''
           pg_ctl stop
-        '')
-        (writeScriptBin "init_pg" ''
+        '';
+
+        init_pg.text = ''
           if [ ! -d $PGHOST ]; then
             mkdir -p $PGHOST
           fi
@@ -35,9 +36,8 @@ in {
             echo "Initializing postgresql database..."
             initdb $PGDATA --auth=trust
           fi
-
-        '')
-      ];
+        '';
+      };
     })
     (mkIf (cfg.enable && cfg.serve == "local") {
       denv.env = let

@@ -22,13 +22,21 @@ in {
                 ${acc}
                 export ${name}=${value}
               '') "" cfg.env;
-            in pkgs.mkShell {
-              buildInputs = cfg.packages;
+
+              scriptPackages = lib.foldlAttrs (acc: name: value:
+                acc ++ [ (pkgs.writeScriptBin name value.text) ]) [ ]
+                cfg.scripts;
+
+              packages = cfg.packages ++ scriptPackages;
+
               shellHook = ''
                 ${exports}
                  
                 ${cfg.init}
               '';
+            in pkgs.mkShell {
+              buildInputs = packages;
+              shellHook = shellHook;
             };
         in lib.mapAttrs (_name: denv: mkShell denv.denv) config.denvs;
       };
