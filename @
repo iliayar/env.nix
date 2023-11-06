@@ -1,13 +1,13 @@
 # Thanks devshell! https://github.com/numtide/devshell/blob/main/flake-module.nix
 
 localFlake:
-{ lib, flake-parts-lib, inputs, ... }:
+{ lib, flake-parts-lib, ... }:
 let
   inherit (flake-parts-lib) mkPerSystemOption;
   inherit (lib) mkOption types;
 in {
   options = {
-    perSystem = mkPerSystemOption ({ config, pkgs, system, ... }: {
+    perSystem = mkPerSystemOption ({ config, pkgs, ... }: {
       options.denvs = mkOption {
         type = types.lazyAttrsOf (types.submoduleWith {
           modules = import ./modules/modules.nix { inherit pkgs lib; };
@@ -15,11 +15,6 @@ in {
         default = { };
       };
       config = {
-        _module.args.pkgs = import inputs.nixpkgs {
-          inherit system;
-          overlays = [ inputs.rust-overlay.overlays.default ];
-        };
-
         devShells = let
           mkShell = cfg:
             let

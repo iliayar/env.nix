@@ -1,9 +1,14 @@
 {
   description = "Configure environment using Nix";
 
-  inputs = { nixpkgs.url = "github:NixOS/nixpkgs/nixos-23.05"; };
+  inputs = {
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-23.05";
 
-  outputs = inputs@{ flake-parts, ... }:
+    rust-overlay.url = "github:oxalica/rust-overlay";
+    rust-overlay.inputs.nixpkgs.follows = "nixpkgs";
+  };
+
+  outputs = inputs@{ flake-parts, rust-overlay, ... }:
     flake-parts.lib.mkFlake { inherit inputs; }
     ({ withSystem, flake-parts-lib, ... }:
       let
@@ -20,6 +25,7 @@
         flake = {
           inherit flakeModules;
           homeManagerModules.default = import ./hm-module.nix;
+          nixosModules.default = import ./nixos-module.nix;
 
           templates = rec {
             default = basic;
