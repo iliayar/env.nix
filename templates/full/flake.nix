@@ -10,7 +10,7 @@
   };
 
   outputs = inputs@{ flake-parts, denv, ... }:
-    flake-parts.lib.mkFlake { inherit inputs; } {
+    flake-parts.lib.mkFlake { inputs = denv.inputs; } {
       imports = [ denv.flakeModules.default ];
       systems =
         [ "x86_64-linux" "aarch64-linux" "aarch64-darwin" "x86_64-darwin" ];
