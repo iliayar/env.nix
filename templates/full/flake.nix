@@ -2,7 +2,7 @@
   description = "Description for the project";
 
   inputs = {
-    nixpkgs.url = "github:NixOS/nixpkgs/nixos-23.05";
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-23.11";
     denv = {
       url = "github:iliayar/env.nix";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -23,6 +23,14 @@
           #   serve = "local";
           #   defaultDatabase = "postgres";
           #   autoStart = true;
+          # };
+
+          # langs.go = {
+          #   enable = true;
+          # };
+
+          # langs.ocaml = {
+          #   enable = true;
           # };
         };
       };
