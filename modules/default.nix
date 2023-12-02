@@ -5,5 +5,6 @@
         ./base.nix
         ./scripts.nix
         ./services
+        ./langs
     ];
 }
