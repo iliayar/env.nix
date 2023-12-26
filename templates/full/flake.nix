@@ -32,6 +32,10 @@
           # langs.ocaml = {
           #   enable = true;
           # };
+
+          # langs.protobuf = {
+          #   enable = true;
+          # };
         };
       };
       flake = { };
