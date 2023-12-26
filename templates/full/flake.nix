@@ -40,6 +40,10 @@
           # langs.nix = {
           #   enable = true;
           # };
+
+          # langs.lua = {
+          #   enable = true;
+          # };
         };
       };
       flake = { };
