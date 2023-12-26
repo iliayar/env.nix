@@ -36,6 +36,10 @@
           # langs.protobuf = {
           #   enable = true;
           # };
+
+          # langs.nix = {
+          #   enable = true;
+          # };
         };
       };
       flake = { };
