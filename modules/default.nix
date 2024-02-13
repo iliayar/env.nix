@@ -6,5 +6,6 @@
         ./scripts.nix
         ./services
         ./langs
+        ./tools
     ];
 }
