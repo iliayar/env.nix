@@ -16,6 +16,9 @@ in {
       ocamlPackages.ocamlformat
 
       pkg-config
+
+      # TODO: choose build system
+      nodePackages.esy
     ];
   };
 }
