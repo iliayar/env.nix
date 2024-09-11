@@ -16,5 +16,5 @@ in {
       };
     };
   };
-  config = mkIf cfg.enable { denv.packages = with pkgs; [ python3.withPackages cfg.packages ]; };
+  config = mkIf cfg.enable { denv.packages = with pkgs; [ (python3.withPackages cfg.packages) ]; };
 }
