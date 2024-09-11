@@ -8,5 +8,6 @@
         ./lua.nix
         ./haskell.nix
         ./cpp.nix
+        ./python.nix
     ];
 }
