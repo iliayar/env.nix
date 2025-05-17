@@ -15,7 +15,14 @@
       systems =
         [ "x86_64-linux" "aarch64-linux" "aarch64-darwin" "x86_64-darwin" ];
       perSystem = { config, self', inputs', pkgs, system, ... }: {
-        denvs.default = { programs.hello.enable = true; };
+        denvs.default = { 
+            langs.python = {
+                enable = true;
+                packages = (pypkgs: with pypkgs; [
+                    requests
+                ]);
+            };
+        };
       };
       flake = { };
     };

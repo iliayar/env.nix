@@ -9,5 +9,6 @@
         ./haskell.nix
         ./cpp.nix
         ./python.nix
+        ./coq.nix
     ];
 }
