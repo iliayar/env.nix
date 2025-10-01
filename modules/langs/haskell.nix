@@ -17,6 +17,7 @@ in {
       preparedGhc
       stack
       cabal-install
+      hlint
     ];
   });
 }
