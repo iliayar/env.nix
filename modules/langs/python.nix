@@ -5,6 +5,10 @@ in {
   options = {
     langs.python = {
       enable = mkEnableOption { default = false; };
+      jupyter = {
+        enable = mkEnableOption { default = false; };
+      };
+      ml.enable = mkEnableOption { default = false; };
       packages = mkOption {
         default = (ps: [ ]);
         type = mkOptionType {
@@ -16,5 +20,13 @@ in {
       };
     };
   };
-  config = mkIf cfg.enable { denv.packages = with pkgs; [ (python3.withPackages cfg.packages) ]; };
+  config = mkMerge [
+    (mkIf (cfg.enable && cfg.ml.enable) {
+        langs.python.packages = pypkgs: with pypkgs; [ scikit-learn ];
+    })
+    (mkIf (cfg.enable && cfg.jupyter.enable) {
+        langs.python.packages = pypkgs: with pypkgs; [ jupyter jupyterlab ];
+    })
+    (mkIf cfg.enable { denv.packages = with pkgs; [ (python3.withPackages cfg.packages) ]; })
+  ];
 }

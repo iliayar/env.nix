@@ -14,10 +14,11 @@ in {
         });
         default = { };
       };
+      options.overlays = mkOption { default = []; };
       config = {
         _module.args.pkgs = import inputs.nixpkgs {
           inherit system;
-          overlays = [ inputs.rust-overlay.overlays.default ];
+          overlays = [ inputs.rust-overlay.overlays.default ] ++ config.overlays;
         };
 
         devShells = let
