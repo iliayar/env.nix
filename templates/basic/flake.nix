@@ -1,8 +1,6 @@
 {
-  description = "Description for the project";
-
   inputs = {
-    nixpkgs.url = "github:NixOS/nixpkgs/nixos-25.05";
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-26.05";
     denv = {
       url = "github:iliayar/env.nix";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -18,7 +16,7 @@
         denvs.default = {
             denv.packages = with pkgs; [
                 # Add your packages
-            ]
+            ];
 
             # Python
             # langs.python = {
